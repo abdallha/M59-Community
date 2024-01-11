@@ -44,12 +44,13 @@ classvars:
    viSpellExertion = 3
    viMeditate_ratio = 30
 
-   viHarmful = TRUE
-   viOutlaw = TRUE
    viNoNewbieOffense = TRUE
    vbIsAreaEffect = TRUE
 
 properties:
+
+   viHarmful = TRUE
+   viOutlaw = TRUE
 
 messages:
 
@@ -122,9 +123,9 @@ messages:
 
       return lFinalTargets;
    }
+  
 	
-	
-   DoSpellEffects(who = $,lTargets=$)
+   DoSpellEffects(who = $,lTargets=$, iLocation=$)
    {
       local oRoom, iSpellPower, i, bAll, iChance;
 
@@ -146,7 +147,9 @@ messages:
       }
       else
       {
-         bAll = TRUE;
+         bAll = FALSE;
+		 viHarmful = FALSE;
+		 
       }
 	   
 	   if bAll
@@ -166,7 +169,18 @@ messages:
 	      Send(i,@MsgSendUser,#message_rsc=dispelillusion_castermsg_rsc);
 		
 		}
- 
+	 
+	 
+	 if IsClass(oRoom,&Cave2)
+		
+		{
+		viHarmful=FALSE;
+		Send(oRoom,@DispelIllusionEnchantments,#who=who,#iChance=iChance,
+               #stroke_obj=self);
+		Send(oRoom,@DispelIllusions,#who=who,#what=self,#iChance=iChance,
+            #bAll=bAll,#stroke_obj=self);
+		
+		}
        return;
    }
 
