@@ -50,7 +50,7 @@ classvars:
    viMana = 10
    viSpell_level = 6
 
-   viManaDrain = 10000            // Mana drained per second (10^3)
+   viManaDrain = 8000            // Mana drained per second (10^3)
    
    viChance_To_Increase = 10
    viMeditate_ratio = 50
